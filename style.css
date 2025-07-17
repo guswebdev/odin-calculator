@@ -1,1 +1,81 @@
-body{background-color: blueviolet;}
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.header,
+.footer {
+  background-color: #222;
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.container {
+  width: 90%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+button {
+  display: inline-block;
+  padding: 1rem;
+  margin: 0.5rem;
+  width: 60px;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  font-size: 1.125rem;
+}
+
+.container-main {
+  width: 100%;
+  min-height: calc(100vh - 69px - 50px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tablero {
+  padding: 1rem;
+  background-color: #525252;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.display {
+  background-color: lightyellow;
+  padding: 1rem;
+  line-height: 50px;
+  font-size: 32px;
+}
+
+.teclado {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.btns {
+  display: flex;
+  justify-content: space-between;
+}
