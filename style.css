@@ -63,10 +63,12 @@ button {
 }
 
 .display {
+  height: 65px;
   background-color: lightyellow;
   padding: 1rem;
-  line-height: 50px;
+  /*line-height: 50px;*/
   font-size: 32px;
+  text-align: right;
 }
 
 .teclado {
