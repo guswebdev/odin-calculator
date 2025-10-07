@@ -6,8 +6,7 @@ class Calculadora {
   numeroDos = "";
   operador = "";
   estado = true;
-
-  //Voy a crear una variable resultado
+  resultado = "";
 
   //Tambien deberia trabajar con decimales
 
@@ -31,6 +30,13 @@ class Calculadora {
   }
   set estado(nuevoEstado) {
     this.estado = nuevoEstado;
+  }
+
+  get resultado() {
+    return this.resultado;
+  }
+  set resultado(nuevoResultado) {
+    this.resultado = nuevoResultado;
   }
 
   sumar(a, b) {
@@ -65,8 +71,19 @@ class Calculadora {
   resetear() {
     this.numeroUno = "";
     this.numeroDos = "";
+    this.resultado = "";
     this.operador = "";
     this.estado = true;
+  }
+  agregarDecimal() {
+    if (this.estado) {
+      this.numeroUno += ".";
+
+      display.render(this.numeroUno);
+    } else {
+      this.numeroDos += ".";
+      display.render(this.numeroDos);
+    }
   }
 }
 
@@ -97,7 +114,6 @@ class Controlador {
       calculadora.numeroDos += elemento;
       display.render(calculadora.numeroDos);
     }
-    console.log(calculadora);
   }
   controlarOperadores(operador) {
     display.limpiarDisplay();
@@ -105,6 +121,7 @@ class Controlador {
     if (calculadora.operador === "") {
       calculadora.operador = operador;
     } else {
+      calculadora.resultado = calculadora.calcular();
       calculadora.numeroUno = calculadora.calcular();
       display.render(calculadora.numeroUno);
       calculadora.numeroDos = "";
@@ -115,7 +132,7 @@ class Controlador {
   controlarBorrar() {
     display.limpiarDisplay();
     calculadora.resetear();
-    console.log(calculadora);
+    display.$btnDecimal.disabled = false
   }
 
   eliminarUltimoCaracter(numero) {
@@ -140,15 +157,24 @@ class Controlador {
     }
   }
   controlarIgualdad() {
-    console.log(`Resultado: ${calculadora.calcular()}`);
     if (
       calculadora.numeroUno != "" &&
       calculadora.numeroDos != "" &&
       calculadora.operador != ""
     ) {
-      display.render(calculadora.calcular());
+      calculadora.resultado = calculadora.calcular();
+      if (!Number.isInteger(calculadora.resultado)) {
+        display.render(Number(calculadora.resultado).toFixed(2));
+      } else {
+        display.render(calculadora.resultado);
+      }
       calculadora.resetear();
+      display.$btnDecimal.disabled = false
     }
+  }
+  controlarDecimal() {
+    calculadora.agregarDecimal();
+    display.$btnDecimal.disabled = true;
   }
 
   click(e) {
@@ -171,6 +197,10 @@ class Controlador {
       if (display.$btnBorrarParcial === e.target) {
         controlador.controlarBorrarParcial();
       }
+      if (display.$btnDecimal === e.target) {
+        controlador.controlarDecimal();
+      }
+      console.log(calculadora);
     }
   }
 }
